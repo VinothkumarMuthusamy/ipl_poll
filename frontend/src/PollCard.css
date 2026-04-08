@@ -224,6 +224,25 @@
   text-align: right;
 }
 
+.voters-list {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  margin-top: 4px;
+  border-left: 2px solid var(--border-subtle);
+}
+
+.voters-label {
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
 /* ─── Owner Actions ──────────────────────────────────── */
 .pc-actions {
   display: flex;

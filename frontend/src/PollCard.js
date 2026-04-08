@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import "./PollCard.css";
 
 const IPL_COLORS = {
@@ -38,6 +39,7 @@ function formatExpiry(endTime) {
 }
 
 export default function PollCard({ poll, mobile, votedOption, onVote, onEdit, onDelete }) {
+  const [voters, setVoters] = useState({ voters1: [], voters2: [] });
   const now = Date.now();
   const expired = now > poll.end_time;
   const total = poll.votes1 + poll.votes2;
@@ -50,6 +52,19 @@ export default function PollCard({ poll, mobile, votedOption, onVote, onEdit, on
   const style2 = getTeamStyle(poll.option2);
 
   const winnerOpt = total > 0 ? (poll.votes1 > poll.votes2 ? 1 : poll.votes2 > poll.votes1 ? 2 : 0) : 0;
+
+  useEffect(() => {
+    if (expired) {
+      fetch(`http://localhost:5000/polls/${poll.id}/voters`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setVoters({ voters1: data.voters1, voters2: data.voters2 });
+          }
+        })
+        .catch((err) => console.error("Error fetching voters:", err));
+    }
+  }, [expired, poll.id]);
 
   return (
     <div className={`poll-card ${expired ? "expired" : "live"} ${votedOption ? "voted" : ""}`}>
@@ -104,6 +119,11 @@ export default function PollCard({ poll, mobile, votedOption, onVote, onEdit, on
               <div className="result-bar bar-1" style={{ width: `${pct1}%` }} />
             </div>
             <div className="result-pct">{pct1}% <span>({poll.votes1})</span></div>
+            {expired && voters.voters1.length > 0 && (
+              <div className="voters-list">
+                <span className="voters-label">Votes:</span> {voters.voters1.join(", ")}
+              </div>
+            )}
           </div>
 
           <div className={`result-row ${winnerOpt === 2 && expired ? "winner" : ""}`}>
@@ -116,6 +136,11 @@ export default function PollCard({ poll, mobile, votedOption, onVote, onEdit, on
               <div className="result-bar bar-2" style={{ width: `${pct2}%` }} />
             </div>
             <div className="result-pct">{pct2}% <span>({poll.votes2})</span></div>
+            {expired && voters.voters2.length > 0 && (
+              <div className="voters-list">
+                <span className="voters-label">Votes:</span> {voters.voters2.join(", ")}
+              </div>
+            )}
           </div>
 
           <p className="total-votes">{total} vote{total !== 1 ? "s" : ""} cast</p>

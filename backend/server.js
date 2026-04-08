@@ -13,11 +13,11 @@ app.use(express.json());
 // DB Connection
 // ────────────────────────────────────────────
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASS || "2004",
-  database: process.env.DB_NAME || "ipl_app",
-  port: 3306
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
 });
 
 db.connect((err) => {
@@ -160,10 +160,30 @@ app.get("/voted/:poll_id/:mobile", (req, res) => {
     [poll_id, mobile],
     (err, result) => {
       if (result && result.length > 0) {
-        res.json({ voted: true, option: result[0].vote_option });
+        res.json({ voted: true, option: result[0].option });
       } else {
         res.json({ voted: false });
       }
+    }
+  );
+});
+
+// ────────────────────────────────────────────
+// GET VOTERS FOR A POLL
+// ────────────────────────────────────────────
+app.get("/polls/:id/voters", (req, res) => {
+  const { id } = req.params;
+  db.query(
+    "SELECT users.name, votes.option FROM votes JOIN users ON votes.user_mobile = users.mobile WHERE votes.poll_id = ?",
+    [id],
+    (err, results) => {
+      if (err) {
+        console.error("❌ Failed to fetch voters:", err.message);
+        return res.json({ success: false, message: "Failed to fetch voters." });
+      }
+      const voters1 = results.filter((v) => v.option === 1).map((v) => v.name);
+      const voters2 = results.filter((v) => v.option === 2).map((v) => v.name);
+      res.json({ success: true, voters1, voters2 });
     }
   );
 });
