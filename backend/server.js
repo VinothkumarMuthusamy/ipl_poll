@@ -27,6 +27,19 @@ db.connect((err) => {
     console.log("✅ Connected to MySQL");
   }
 });
+// ────────────────────────────────────────────
+// ✅ BASIC ROUTES (IMPORTANT)
+// ────────────────────────────────────────────
+app.get("/", (req, res) => {
+  res.send("Backend running ✅");
+});
+
+app.get("/test", (req, res) => {
+  db.query("SELECT 1", (err) => {
+    if (err) return res.send("DB Error ❌");
+    res.send("DB Connected ✅");
+  });
+});
 
 // ────────────────────────────────────────────
 // SIGNUP
@@ -44,6 +57,7 @@ app.post("/signup", async (req, res) => {
       [name, mobile, hash],
       (err) => {
         if (err)
+
           return res.json({ success: false, message: "Mobile already registered." });
         res.json({ success: true, message: "Signup successful!" });
       }
@@ -120,7 +134,8 @@ app.post("/create-poll", (req, res) => {
 // VOTE
 // ────────────────────────────────────────────
 app.post("/vote", (req, res) => {
-  const { poll_id, mobile, vote_option } = req.body;
+  const { poll_id, mobile } = req.body;
+  const vote_option = req.body.vote_option || req.body.option;
   console.log("🗳️ Vote request body:", req.body);
 
   db.query(
@@ -131,7 +146,7 @@ app.post("/vote", (req, res) => {
         return res.json({ success: false, message: "Already voted!" });
 
       db.query(
-        "INSERT INTO votes (poll_id, user_mobile, `option`) VALUES (?, ?, ?)",
+        "INSERT INTO votes (poll_id, user_mobile, vote_option) VALUES (?, ?, ?)",
         [poll_id, mobile, vote_option],
         (err2) => {
           if (err2) {
@@ -168,13 +183,14 @@ app.get("/voted/:poll_id/:mobile", (req, res) => {
   );
 });
 
+
 // ────────────────────────────────────────────
 // GET VOTERS FOR A POLL
 // ────────────────────────────────────────────
 app.get("/polls/:id/voters", (req, res) => {
   const { id } = req.params;
   db.query(
-    "SELECT users.name, votes.option FROM votes JOIN users ON votes.user_mobile = users.mobile WHERE votes.poll_id = ?",
+    "SELECT users.name, votes.vote_option FROM votes JOIN users ON votes.user_mobile = users.mobile WHERE votes.poll_id = ?",
     [id],
     (err, results) => {
       if (err) {

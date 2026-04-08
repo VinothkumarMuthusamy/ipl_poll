@@ -7,7 +7,7 @@ import EditPollModal from "./EditPollModal";
 import CricketWidget from "./CricketWidget";
 import "./Dashboard.css";
 
-const API = "http://localhost:5000";
+import API from "./config";
 
 export default function Dashboard() {
   const [polls, setPolls] = useState([]);
@@ -56,7 +56,7 @@ export default function Dashboard() {
       const res = await fetch(`${API}/vote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ poll_id: pollId, mobile, option }),
+        body: JSON.stringify({ poll_id: pollId, mobile, vote_option: option }),
       });
       const data = await res.json();
       if (data.success) {

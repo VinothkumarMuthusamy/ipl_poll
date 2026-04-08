@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast, ToastContainer } from "./useToast";
 import "./Login.css";
 
-const API = "http://localhost:5000";
+import API from "./config";
 
 const IPL_TEAMS = [
   "Chennai Super Kings", "Mumbai Indians", "Royal Challengers Bangalore",

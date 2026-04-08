@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API = "http://localhost:5000";
+import API from "./config";
 
 const TEAMS = [
   "Chennai Super Kings", "Mumbai Indians", "Royal Challengers Bangalore",

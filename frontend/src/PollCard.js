@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./PollCard.css";
+import API from "./config";
 
 const IPL_COLORS = {
   "Chennai Super Kings": { bg: "#f5c518", text: "#1a0a00" },
@@ -55,7 +56,7 @@ export default function PollCard({ poll, mobile, votedOption, onVote, onEdit, on
 
   useEffect(() => {
     if (expired) {
-      fetch(`http://localhost:5000/polls/${poll.id}/voters`)
+      fetch(`${API}/polls/${poll.id}/voters`)
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {

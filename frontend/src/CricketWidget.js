@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './CricketWidget.css';
 
-const API = "http://localhost:5000/api/cricket";
+import API_BASE from "./config";
+const API = `${API_BASE}/api/cricket`;
 
 export default function CricketWidget() {
   const [liveScores, setLiveScores] = useState([]);
