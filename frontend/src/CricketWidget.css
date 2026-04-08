@@ -1,0 +1,205 @@
+.cricket-widget {
+  background: rgba(255, 255, 255, 0.05); /* subtle glass */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 0.5s ease;
+}
+
+.cw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cw-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cw-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  padding: 4px;
+}
+
+.cw-tab {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.cw-tab:hover {
+  color: #fff;
+}
+
+.cw-tab.active {
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cw-content {
+  min-height: 150px;
+}
+
+/* CARDS */
+.cw-live-list, .cw-fixtures-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.cw-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.cw-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cw-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cw-match-title {
+  font-size: 0.85rem;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.cw-badge.live-badge {
+  background: #ff3b3b;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+.cw-score-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.cw-score small {
+  font-size: 0.8rem;
+  color: #aaa;
+  font-weight: 400;
+}
+
+.cw-status {
+  color: #4cd137;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.cw-highlight {
+  font-size: 0.8rem;
+  color: #999;
+  margin-top: 5px;
+}
+
+/* Fixtures */
+.cw-fixture-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.cw-fixture-date, .cw-fixture-venue {
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+/* TABLE */
+.cw-table-wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.cw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.cw-table th {
+  text-align: left;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+  font-weight: 600;
+}
+
+.cw-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cw-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cw-team-name {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.cw-pos {
+  display: inline-block;
+  width: 20px;
+  margin-right: 10px;
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.cw-pts {
+  font-weight: 700;
+  color: #00d2d3;
+}
