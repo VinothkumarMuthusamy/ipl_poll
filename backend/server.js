@@ -13,18 +13,18 @@ app.use(express.json());
 // DB Connection
 // ────────────────────────────────────────────
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASS || "2004",
-  database: process.env.DB_NAME || "ipl_app",
-  port: 3306
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
 });
 
 db.connect((err) => {
   if (err) {
-    console.error("❌ DB connection failed:", err.message);
+    console.log("❌ DB connection failed:", err);
   } else {
-    console.log("✅ Connected to MySQL");
+    console.log("✅ Connected to Railway MySQL");
   }
 });
 
