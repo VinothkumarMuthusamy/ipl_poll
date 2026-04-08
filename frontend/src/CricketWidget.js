@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import API from './api';
 import './CricketWidget.css';
 
-const CRICKET_API = `${API}/api/cricket`;
+const API = "http://localhost:5000/api/cricket";
 
 export default function CricketWidget() {
   const [liveScores, setLiveScores] = useState([]);
@@ -12,10 +11,10 @@ export default function CricketWidget() {
   const [activeTab, setActiveTab] = useState('live'); // 'live', 'completed', 'fixtures', 'standings'
 
   useEffect(() => {
-    fetch(`${CRICKET_API}/live`).then(res => res.json()).then(setLiveScores).catch(console.error);
-    fetch(`${CRICKET_API}/completed`).then(res => res.json()).then(setCompletedMatches).catch(console.error);
-    fetch(`${CRICKET_API}/fixtures`).then(res => res.json()).then(setFixtures).catch(console.error);
-    fetch(`${CRICKET_API}/points-table`).then(res => res.json()).then(setPointsTable).catch(console.error);
+    fetch(`${API}/live`).then(res => res.json()).then(setLiveScores).catch(console.error);
+    fetch(`${API}/completed`).then(res => res.json()).then(setCompletedMatches).catch(console.error);
+    fetch(`${API}/fixtures`).then(res => res.json()).then(setFixtures).catch(console.error);
+    fetch(`${API}/points-table`).then(res => res.json()).then(setPointsTable).catch(console.error);
   }, []);
 
   return (

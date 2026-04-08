@@ -1,6 +1,6 @@
 import { useState } from "react";
-import API from "./api";
 
+const API = "http://localhost:5000";
 
 export default function EditPollModal({ poll, mobile, onClose, onUpdated, showToast }) {
   const [form, setForm] = useState({

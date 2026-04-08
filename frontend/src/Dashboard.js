@@ -5,8 +5,9 @@ import PollCard from "./PollCard";
 import CreatePollModal from "./CreatePollModal";
 import EditPollModal from "./EditPollModal";
 import CricketWidget from "./CricketWidget";
-import API from "./api";
 import "./Dashboard.css";
+
+const API = "http://localhost:5000";
 
 export default function Dashboard() {
   const [polls, setPolls] = useState([]);
